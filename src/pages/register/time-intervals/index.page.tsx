@@ -7,7 +7,7 @@ import {
   TextInput,
 } from '@ignite-ui/react'
 import { Container, Header } from '../styles'
-
+import { useRouter } from 'next/router'
 import {
   FormError,
   IntervalBox,
@@ -89,6 +89,8 @@ export default function TimeIntervals() {
     },
   })
 
+  const { push } = useRouter()
+
   const weekDays = getWeekDays()
 
   const { fields } = useFieldArray({
@@ -102,6 +104,8 @@ export default function TimeIntervals() {
     const { intervals } = data as TimeIntervalsFormOutput
 
     await api.post('/users/time-intervals', { intervals })
+
+    await push('/register/update-profile')
   }
 
   return (
